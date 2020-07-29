@@ -1,7 +1,10 @@
 // @ts-ignore
-import {combineReducers} from 'redux';
-import items from './item_reducer/items';
+import {combineReducers} from '@reduxjs/toolkit';
+import itemsSlice from './item_reducer/items';
+import customerSlice from './Customer_reducer/customer';
 
-export default combineReducers({
-  items,
+export const reducer = combineReducers({
+  items: itemsSlice.reducer,
+  customers: customerSlice.reducer,
+  // other reducers should be entered here as well
 });

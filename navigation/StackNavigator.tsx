@@ -5,6 +5,8 @@ import ItemsScreen from '../components/items';
 import EditItems from '../components/items/EditItem';
 import EditScreen from '../components/items/EditScreen';
 import ItemListView from '../components/items/ItemListView';
+import CustomerList from '../components/customers/CustomerList';
+import CustomerScreen from '../components/customers/index';
 
 const Stack = createStackNavigator();
 
@@ -13,7 +15,7 @@ const StackNavigator = () => {
     <Stack.Navigator>
       <Stack.Screen
         name={'tabNavigator'}
-        component={ItemListView}
+        component={CustomerScreen}
         options={({navigation}) => {
           return {
             headerTitleAlign: 'center',

@@ -1,13 +1,17 @@
 import {StyleSheet, Text, TextInput, View} from 'react-native';
 import React from 'react';
 
-const SearchBox = () => {
+const CustomerSearchBox = ({
+  CustomerSearchBoxValue,
+  CustomerPlaceHolder,
+}: any) => {
   return (
     <View style={styles.body}>
       <View style={styles.body_text_view}>
         <TextInput
           style={styles.search_box}
-          placeholder={'Search Products & Service Items'}
+          placeholder={CustomerPlaceHolder}
+          value={CustomerSearchBoxValue}
         />
       </View>
       <View style={styles.body_clear_text_button_View}>
@@ -51,4 +55,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default SearchBox;
+export default CustomerSearchBox;

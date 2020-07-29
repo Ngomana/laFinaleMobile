@@ -1,54 +1,61 @@
-import {Button, TextInput, View, Picker, Modal, StyleSheet} from 'react-native';
-import React, {useState, useEffect} from 'react';
-import {useSelector, useDispatch} from 'react-redux';
+import React from 'react';
+import {Button, TextInput, View, StyleSheet, Text} from 'react-native';
+import {Picker} from '@react-native-community/picker';
 
-const EditItems = ({route, navigation}: any) => {
-  const [type, setType] = useState('');
-  const [id, setId] = useState('');
-  const [code, setCode] = useState('');
-  const [descritpion, setDescription] = useState();
-  const [quantity, setQuantity] = useState('');
-
-  const [cost, setCost] = useState('');
-  const [sellingPrice, setSellinPrice] = useState();
-
-  const [clientId, setClientId] = useState();
-  const [deviceId, setDeviceId] = useState();
-
-  const {item_type} = route.params;
-  const {item_id} = route.params;
-  const {item_code} = route.params;
-  const {item_description} = route.params;
-  const {item_quantity} = route.params;
-  const {item_cost} = route.params;
-  const {item_sellingPrice} = route.params;
-
-  useEffect(() => {
-    setCode(item_code);
-  });
+const EditItems = (props: any) => {
   return (
     <View>
-      <Modal>
+      <View>
         <Picker
-          selectedValue={item_type}
-          onValueChange={() => {}}
-          // enabled={true}
-        >
+          selectedValue={props.editItemsSelectItemType}
+          onValueChange={props.editItemsOnChangeItemType}>
           <Picker.Item value={''} label={'Select Item Type'} />
           <Picker.Item value={'Physical Item'} label={'Physical'} />
           <Picker.Item value={'Service Item'} label={'Service'} />
         </Picker>
-        <TextInput placeholder="item description" />
-        <TextInput placeholder="Item Number" value={code} />
-        <TextInput placeholder="item code" />
-        <TextInput placeholder="item description" />
-        <TextInput placeholder="item cost" />
-        <Button title={'Close'} onPress={() => {}} />
-        <Button
-          title={'Save'}
-          onPress={() => navigation.navigate('tabNavigator')}
+      </View>
+
+      <View>
+        <Text>Item Code</Text>
+        <TextInput
+          style={{borderWidth: 1, borderColor: 'blue'}}
+          value={props.itemCodeValue}
+          onChange={props.onChangeItemCode}
         />
-      </Modal>
+
+        <Text>Item Description</Text>
+        <TextInput
+          style={{borderWidth: 1, borderColor: 'blue'}}
+          value={props.itemDescriptionValue}
+          onChange={props.onChangeItemDescription}
+        />
+
+        <Text>Item Quantity</Text>
+        <TextInput
+          style={{borderWidth: 1, borderColor: 'blue'}}
+          value={props.itemQuantityValue}
+          onChange={props.onChangeQuantity}
+        />
+
+        <Text>Item Cost Price</Text>
+        <TextInput
+          style={{borderWidth: 1, borderColor: 'blue'}}
+          value={props.costPriceValue}
+          onChange={props.onChangeCostPrice}
+        />
+
+        <Text>Item Selling Price</Text>
+        <TextInput
+          style={{borderWidth: 1, borderColor: 'blue'}}
+          value={props.sellingPriceValue}
+          onChange={props.onChangeSellingPrice}
+        />
+      </View>
+
+      <View>
+        <Button title={'Close'} onPress={props.cancelEditItems} />
+        <Button title={'Save'} onPress={props.saveEditItems} />
+      </View>
     </View>
   );
 };

@@ -1,11 +1,17 @@
 import React, {useState} from 'react';
-import {View, TextInput, NativeSyntheticEvent, Button} from 'react-native';
+import {
+  View,
+  TextInput,
+  NativeSyntheticEvent,
+  Button,
+  Modal,
+} from 'react-native';
 import {Picker} from '@react-native-community/picker';
 
 import {useDispatch} from 'react-redux';
-import {addItemAction} from 'redux/actions/item_actions/item_action';
+import {createItemAction} from '../../redux/reducers/item_reducer/items';
 
-export const AddItem = () => {
+export const AddItem = (props: any) => {
   const [item_code, set_item_code] = useState('');
   const [item_id, setItem_Id] = useState('');
   const [item_type, setItem_Type] = useState('');
@@ -21,7 +27,7 @@ export const AddItem = () => {
   const dispatch = useDispatch();
   const addHandler = () => {
     dispatch(
-      addItemAction({
+      createItemAction({
         item_id: parseFloat(item_id),
         item_code: item_code,
         item_type: item_type,
@@ -31,6 +37,12 @@ export const AddItem = () => {
         selling_price: parseFloat(selling_price),
       }),
     );
+    set_item_code('');
+    setItem_Id('');
+    setItem_description('');
+    setItem_Cost_Price('');
+    setItem_Quantity('');
+    setItem_SellingPrice('');
   };
 
   const onChangeNumberHandler = (e: NativeSyntheticEvent<string>): void => {
@@ -74,46 +86,49 @@ export const AddItem = () => {
   };
   return (
     <View>
-      <Picker
-        selectedValue={item_type}
-        onValueChange={onChangeTypeHandler}
-        enabled={picker}
-        mode={'dropdown'}>
-        <Picker.Item value={''} label={'Select Item Type'} />
-        <Picker.Item value={'Physical Item'} label={'Physical'} />
-        <Picker.Item value={'Service Item'} label={'Service'} />
-      </Picker>
-      <TextInput
-        placeholder="Item Number"
-        onChange={onChangeNumberHandler}
-        value={item_id}
-      />
-      <TextInput
-        placeholder="item code"
-        onChange={onChangeItemCode}
-        value={item_code}
-      />
-      <TextInput
-        placeholder="item description"
-        onChange={onChangeDescription}
-        value={item_description}
-      />
-      <TextInput
-        placeholder={'Quantity'}
-        value={quantity}
-        onChange={onChange_item_quantity}
-      />
-      <TextInput
-        placeholder="Item Cost Price"
-        onChange={onChange_item_cost}
-        value={cost_price}
-      />
-      <TextInput
-        placeholder={'Selling Price'}
-        value={selling_price}
-        onChange={onChange_item_selling_price}
-      />
-      <Button title="add" onPress={addHandler} />
+      <Modal visible={props.add_item_modal_view} animationType={'slide'}>
+        <Picker
+          selectedValue={item_type}
+          onValueChange={onChangeTypeHandler}
+          enabled={picker}
+          mode={'dropdown'}>
+          <Picker.Item value={''} label={'Select Item Type'} />
+          <Picker.Item value={'Physical Item'} label={'Physical'} />
+          <Picker.Item value={'Service Item'} label={'Service'} />
+        </Picker>
+        <TextInput
+          placeholder="Item Number"
+          onChange={onChangeNumberHandler}
+          value={item_id}
+        />
+        <TextInput
+          placeholder="item code"
+          onChange={onChangeItemCode}
+          value={item_code}
+        />
+        <TextInput
+          placeholder="item description"
+          onChange={onChangeDescription}
+          value={item_description}
+        />
+        <TextInput
+          placeholder={'Quantity'}
+          value={quantity}
+          onChange={onChange_item_quantity}
+        />
+        <TextInput
+          placeholder="Item Cost Price"
+          onChange={onChange_item_cost}
+          value={cost_price}
+        />
+        <TextInput
+          placeholder={'Selling Price'}
+          value={selling_price}
+          onChange={onChange_item_selling_price}
+        />
+        <Button title="add" onPress={addHandler} />
+        <Button title={'Close'} onPress={props.close_addItem_modal} />
+      </Modal>
     </View>
   );
 };
