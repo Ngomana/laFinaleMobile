@@ -11,8 +11,10 @@
     "devtools": "react-devtools"
   },
   "dependencies": {
+    "@react-native-community/datetimepicker": "^2.6.1",
     "@react-native-community/masked-view": "^0.1.10",
     "@react-native-community/picker": "^1.6.5",
+    "@react-navigation/bottom-tabs": "^5.7.3",
     "@react-navigation/native": "^5.7.1",
     "@react-navigation/stack": "^5.7.1",
     "@reduxjs/toolkit": "^1.4.0",
@@ -26,7 +28,6 @@
     "react-native-screens": "^2.9.0",
     "react-redux": "^7.2.0",
     "reactotron-react-native": "^5.0.0",
-    "realm": "10.0.0-beta.6",
     "redux": "^4.0.5",
     "redux-devtools-extension": "^2.13.8",
     "redux-thunk": "^2.3.0"

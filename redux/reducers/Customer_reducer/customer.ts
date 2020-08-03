@@ -35,7 +35,6 @@ const customerSlice = createSlice({
       const customerToEdit = state.find(
         (customer) => customer.customer_id === payload.customer_id,
       );
-
       if (customerToEdit) {
         customerToEdit.code = payload.code;
         customerToEdit.name = payload.name;
@@ -45,7 +44,9 @@ const customerSlice = createSlice({
       const customerToDelete = state.findIndex(
         (customer) => customer.customer_id === payload.customer_id,
       );
+      // state.customers.filter(({item_code}) => item_code !== payload
 
+      // return state.findIndex((customer) => customer.customer_id !== payload);
       if (customerToDelete !== -1) {
         state.splice(customerToDelete, 1);
       }
