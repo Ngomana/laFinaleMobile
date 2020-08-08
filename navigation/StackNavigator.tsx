@@ -1,9 +1,9 @@
-import * as React from 'react';
-import {Button} from 'react-native';
-import {createStackNavigator, HeaderTitle} from '@react-navigation/stack';
-import Home from './TabNavigator';
-import SelectCustomerScreen from '../components/invoice/SelectCustomerScreen';
-import CreateInvoice from '../components/invoice/createInvoiceModal';
+import * as React from "react";
+import { Button } from "react-native";
+import { createStackNavigator, HeaderTitle } from "@react-navigation/stack";
+import Home from "./TabNavigator";
+import SelectCustomerScreen from "../components/invoice/SelectCustomerScreen";
+import CreateInvoice from "../components/invoice/createInvoiceModal";
 
 const Stack = createStackNavigator();
 
@@ -11,26 +11,26 @@ const StackNavigator = () => {
   return (
     <Stack.Navigator>
       <Stack.Screen
-        name={'tabNavigator'}
+        name={"tabNavigator"}
         component={Home}
-        options={({navigation}) => {
+        options={({ navigation }) => {
           return {
-            headerTitleAlign: 'center',
-            headerTitle: 'Mars Industries',
-            headerMode: 'screen',
+            headerTitleAlign: "center",
+            headerTitle: "Mars Industries",
+            headerMode: "screen",
             headerRight: () => (
               <Button
-                title={'Invoice'}
+                title={"Invoice"}
                 onPress={() =>
-                  navigation.navigate('selectCustomerScreenInvoice')
+                  navigation.navigate("selectCustomerScreenInvoice")
                 }
               />
             ),
             headerLeft: () => (
               <Button
-                title={'Quote'}
+                title={"Quote"}
                 onPress={() =>
-                  navigation.navigate('selectCustomerScreenInvoice')
+                  navigation.navigate("selectCustomerScreenInvoice")
                 }
               />
             ),
@@ -39,11 +39,18 @@ const StackNavigator = () => {
       />
 
       <Stack.Screen
-        name={'selectCustomerScreenInvoice'}
+        name={"selectCustomerScreenInvoice"}
         component={SelectCustomerScreen}
       />
 
-      <Stack.Screen name={'selectInvoiceItems'} component={CreateInvoice} />
+      <Stack.Screen
+        name={"selectInvoiceItems"}
+        component={CreateInvoice}
+        options={{
+          title: "Select Invoice Items",
+          headerRight: () => <Button title={"Reset"} onPress={() => {}} />,
+        }}
+      />
     </Stack.Navigator>
   );
 };

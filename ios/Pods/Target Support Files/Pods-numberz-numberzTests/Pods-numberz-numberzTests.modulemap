@@ -1,0 +1,6 @@
+module Pods_numberz_numberzTests {
+  umbrella header "Pods-numberz-numberzTests-umbrella.h"
+
+  export *
+  module * { export * }
+}

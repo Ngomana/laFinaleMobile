@@ -1,6 +1,6 @@
-import React from 'react';
-import {StyleSheet, View} from 'react-native';
-import InvoiceListView from './invoiceListView';
+import React from "react";
+import { StyleSheet, View } from "react-native";
+import InvoiceListView from "./invoiceListView";
 
 const InvoiceScreen = () => {
   return (
@@ -13,7 +13,7 @@ const InvoiceScreen = () => {
 const styles = StyleSheet.create({
   body: {
     flex: 1,
-    backgroundColor: 'orange',
+    backgroundColor: "orange",
   },
 });
 

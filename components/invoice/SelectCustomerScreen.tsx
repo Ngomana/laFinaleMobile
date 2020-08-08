@@ -1,26 +1,25 @@
-import React from 'react';
+import React from "react";
+import { View, Text, FlatList, Button, StyleSheet } from "react-native";
+import SearchBox from "../items/SearchBox";
+import { useDispatch, useSelector } from "react-redux";
 import {
-  View,
-  Text,
-  FlatList,
-  Button,
-  TextInput,
-  StyleSheet,
-} from 'react-native';
-import SearchBox from '../items/SearchBox';
-import {useSelector} from 'react-redux';
-import {Picker} from '@react-native-community/picker';
+  addCustomerToInvoice,
+  deleteCustomerToInvoice,
+} from "../../redux/reducers/Invoice_reducer/createInvoice";
 
-const SelectCustomerScreen = ({navigation}) => {
+// @ts-ignore
+const SelectCustomerScreen = ({ navigation }) => {
   // @ts-ignore
   const customers = useSelector((state) => state.customers);
+  const dispatch = useDispatch();
+
   return (
     <View style={styles.body}>
       <SearchBox />
 
       <FlatList
         data={customers}
-        renderItem={({item}) => {
+        renderItem={({ item }) => {
           return (
             <View>
               <View>
@@ -31,9 +30,18 @@ const SelectCustomerScreen = ({navigation}) => {
 
               <View>
                 <Button
-                  title={'Select'}
-                  onPress={() => {
-                    navigation.navigate('selectInvoiceItems');
+                  title={"Select"}
+                  onPress={async () => {
+                    await dispatch(deleteCustomerToInvoice(0));
+
+                    dispatch(
+                      addCustomerToInvoice({
+                        code: item.code,
+                        name: item.name,
+                      })
+                    );
+
+                    navigation.navigate("selectInvoiceItems");
                   }}
                 />
               </View>
@@ -48,7 +56,7 @@ const SelectCustomerScreen = ({navigation}) => {
 const styles = StyleSheet.create({
   body: {
     flex: 1,
-    backgroundColor: 'pink',
+    backgroundColor: "pink",
   },
 });
 

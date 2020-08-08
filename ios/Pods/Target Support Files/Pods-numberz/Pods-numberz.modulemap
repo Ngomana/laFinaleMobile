@@ -1,0 +1,6 @@
+module Pods_numberz {
+  umbrella header "Pods-numberz-umbrella.h"
+
+  export *
+  module * { export * }
+}
