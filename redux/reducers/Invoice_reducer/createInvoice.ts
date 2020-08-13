@@ -9,12 +9,6 @@ const InvoiceCustomerState: ICustomer[] = [];
 
 const invoiceDetailsState: IDocumentDetails[] = [];
 
-const invoiceDetailsTotalAmount: ITotalAmount[] = [
-  {
-    totalAmount: 0,
-  },
-];
-
 export const createInvoiceCustomerSlice = createSlice({
   name: "CustomerToInvoice",
   initialState: invoiceDetailsState,
@@ -102,7 +96,9 @@ export const createInvoiceDetailsSlice = createSlice({
         state.splice(itemToDelete, 1);
       }
     },
-    remove_all: (state, { payload }) => {},
+    remove_all: (state, { payload }) => {
+      return invoiceDetailsState;
+    },
   },
 });
 
@@ -114,4 +110,5 @@ export const {
   subtract_quantity: decreaseItemQuantity,
   manual_quantity: typedItemQuantity,
   remove_one: removeItemFromDocument,
+  remove_all: removeAllItems,
 } = createInvoiceDetailsSlice.actions;

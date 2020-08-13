@@ -1,155 +1,190 @@
-import React, { SyntheticEvent, useEffect, useState } from "react";
-import {
-  Button,
-  FlatList,
-  Modal,
-  NativeSyntheticEvent,
-  StyleSheet,
-  Text,
-  TextInput,
-  View,
-} from "react-native";
-import CustomerComboBox from "../GlobalComponents/CustomerComboBox";
-import { useSelector, useDispatch } from "react-redux";
+import React, { useState } from "react";
+import { Button, FlatList, Modal, StyleSheet, Text, View } from "react-native";
+import { RootStateOrAny, useDispatch, useSelector } from "react-redux";
 import SearchBox from "../items/SearchBox";
-import RNDateTimePicker from "@react-native-community/datetimepicker";
 import {
   addInvoiceItems,
-  incrementItemQuantity,
   decreaseItemQuantity,
-  typedItemQuantity,
-  getInvoiceQuantityItems,
+  incrementItemQuantity,
+  removeItemFromDocument,
 } from "../../redux/reducers/Invoice_reducer/createInvoice";
 import BottomBarDocumentDetails from "../GlobalComponents/ButtomBarTotalList";
+import CustomerDetailsBanner from "../GlobalComponents/DocumentDetailsBanner";
 
-const CreateInvoice = ({ navigation }) => {
+const CreateInvoice = ({ navigation }: any) => {
   const [dateModal, setDateModal] = useState(true);
-  const [quantity, setQuantity] = useState("");
+  const [searchValue, setSearchValue] = useState("");
 
-  const items = useSelector((state) => state.items);
-  const customer = useSelector((state) => state.customerToInvoice);
-  const invoiceItems = useSelector((state) => state.documentToInvoice);
-  const data = useSelector((state) => state.documentToInvoice);
+  const { name, code } = useSelector(
+    (state: RootStateOrAny) => state.customerToInvoice[0]
+  );
 
+  const invoiceItems = useSelector(
+    (state: RootStateOrAny) => state.documentToInvoice
+  );
+
+  const invoices = useSelector((state) => state.invoices);
+
+  const items = useSelector((state: RootStateOrAny) => {
+    if (searchValue.length === 0) {
+      return state.items;
+    }
+
+    return state.items.filter((item: any) => {
+      let itemToLowerCase = item.item_description.toLowerCase();
+      let searchedItemToLowCase = searchValue.toLowerCase();
+      return itemToLowerCase.indexOf(searchedItemToLowCase) > -1;
+    });
+  });
   const dispatch = useDispatch();
 
-  const totalAmountCalculation = () => {
+  const invoiceNumber = Math.max(
+    ...invoices.map((invoice: number) => invoice.invoice_no),
+    1
+  );
+
+  // @ts-ignore
+  const totalAmount = Array.from(invoiceItems)
+    .reduce((acc, cur) => acc + cur.total_amount, 0)
+    .toFixed(2);
+
+  // @ts-ignore
+  const vatAmount = ((totalAmount * 15) / 115).toFixed(2);
+  // @ts-ignore
+  const totalExcluding = (totalAmount * (100 / 115)).toFixed(2);
+
+  const searchItems = (e) => {
+    const text = e.nativeEvent.text;
+    setSearchValue(text);
+  };
+
+  const postInvoiceOnly = () => {
+    //first post invoice to invoice list
+    //vat amount calculation
+
+    console.log(name);
+
+    console.log(`Invoice Number: ${invoiceNumber}`);
     // @ts-ignore
-    return Array.from(invoiceItems)
-      .reduce((acc, cur) => acc + cur.total_amount, 0)
-      .toFixed(2);
-  };
 
-  const vatCalculation = () => {
-    const totalAmount = Array.from(invoiceItems).reduce(
-      (acc, cur) => acc + cur.total_amount,
-      0
-    );
-    return ((totalAmount * 15) / 115).toFixed(2);
-  };
-
-  const vatExcludingCalculation = () => {
-    const totalAmount = Array.from(invoiceItems).reduce(
-      (acc, cur) => acc + cur.total_amount,
-      0
-    );
-    return (totalAmount * (100 / 115)).toFixed(2);
+    console.log(`Vat Amount: ${vatAmount.toString()}`);
+    console.log(`Total Excluding : ${totalExcluding}`);
+    console.log(`Total Amount: ${totalAmount}`);
   };
 
   return (
     <View style={styles.body}>
+      <CustomerDetailsBanner
+        customerCode={code}
+        customerName={name}
+        invoiceDate={"20/02/2020"}
+        invoiceNumber={invoiceNumber}
+        invoiceDueDate={"28/02/2020"}
+      />
       <View>
-        <Text>Customer Info:</Text>
-        {customer.map((customerToInvoice: any) => (
-          <View>
-            <Text>{customerToInvoice.code}</Text>
-            <Text>{customerToInvoice.name}</Text>
-          </View>
-        ))}
-
-        <View>
-          <Button title={"Edit Date"} onPress={() => {}} />
-        </View>
-      </View>
-      <View>
-        <SearchBox />
+        <SearchBox searchValue={searchValue} onChangeHandler={searchItems} />
       </View>
 
       <View style={{ flex: 1, backgroundColor: "silver" }}>
         <FlatList
           data={items}
-          renderItem={({ item }) => {
+          keyExtractor={(item, index) => index.toString()}
+          renderItem={({
+            item: { item_code, item_description, quantity, selling_price },
+          }) => {
             return (
               <View
                 style={{
-                  // justifyContent: "space-between",
                   flexDirection: "column",
+                  backgroundColor: "white",
+                  marginBottom: 5,
                 }}
               >
                 <View
                   style={{
                     flexDirection: "row",
                     justifyContent: "space-between",
-                    // borderWidth: 0.5,
-                    marginBottom: 5,
                     shadowColor: "silver",
-                    backgroundColor: "white",
+                    borderRadius: 201,
                   }}
                 >
                   <View>
-                    <Text>Item Code: {item.item_code}</Text>
-                    <Text>Item Description: {item.item_description}</Text>
-                    <Text>Item Quantity: {item.quantity}</Text>
-                    <Text>Item Selling Price: {item.selling_price}</Text>
+                    <Text>Item Code: {item_code}</Text>
+                    <Text>Item Description: {item_description}</Text>
+                    <Text>Item Quantity: {quantity}</Text>
+                    <Text>Item Selling Price: {selling_price}</Text>
                   </View>
 
                   <View>
-                    <Button title={"Remove"} onPress={() => {}} />
-                    <Button
-                      title={"Add"}
-                      onPress={() => {
-                        dispatch(
-                          addInvoiceItems({
-                            code: item.item_code,
-                            description: item.item_description,
-                            quantity: 1,
-                            selling_price: parseFloat(item.selling_price),
-                            total_amount: parseFloat(item.selling_price),
-                          })
-                        );
-                        console.log(invoiceItems);
-                      }}
-                    />
+                    {Array.from(invoiceItems).find(
+                      (curr) => curr.code === item_code
+                    ) ? (
+                      <Button
+                        color={"red"}
+                        title={"Remove"}
+                        onPress={() => {
+                          dispatch(
+                            removeItemFromDocument({
+                              code: item_code,
+                            })
+                          );
+                        }}
+                      />
+                    ) : (
+                      <Button
+                        title={"Add"}
+                        onPress={() => {
+                          dispatch(
+                            addInvoiceItems({
+                              code: item_code,
+                              description: item_description,
+                              quantity: 1,
+                              selling_price: parseFloat(selling_price),
+                              total_amount: parseFloat(selling_price),
+                            })
+                          );
+                        }}
+                      />
+                    )}
                   </View>
                 </View>
 
-                <View>
+                <View style={styles.quantity_buttons}>
                   {invoiceItems.map((product: any) => {
-                    if (product.code === item.item_code) {
+                    if (product.code === item_code) {
                       return (
-                        <View>
-                          <Text>{product.quantity.toString()}</Text>
-                          <Text>{product.total_amount.toString()}</Text>
-                          <Button
-                            title={"Increment"}
-                            onPress={() => {
-                              dispatch(
-                                incrementItemQuantity({
-                                  code: item.item_code,
-                                })
-                              );
-                            }}
-                          />
-                          <Button
-                            title={"Decrease"}
-                            onPress={() => {
-                              dispatch(
-                                decreaseItemQuantity({
-                                  code: item.item_code,
-                                })
-                              );
-                            }}
-                          />
+                        <View style={styles.quantity_buttons_view}>
+                          <View style={styles.quantity_text_view}>
+                            <Text>Quantity: {product.quantity.toString()}</Text>
+                            <Text>
+                              Total: {product.total_amount.toFixed(2)}
+                            </Text>
+                          </View>
+
+                          <View style={styles.quantity_buttons_view_secondary}>
+                            <Button
+                              color={"#F9F871"}
+                              title={"+ Increment"}
+                              onPress={() => {
+                                dispatch(
+                                  incrementItemQuantity({
+                                    code: item_code,
+                                  })
+                                );
+                              }}
+                            />
+                            <Button
+                              color={"white"}
+                              title={"- Decrease"}
+                              onPress={() => {
+                                dispatch(
+                                  decreaseItemQuantity({
+                                    code: item_code,
+                                  })
+                                );
+                              }}
+                            />
+                          </View>
                         </View>
                       );
                     }
@@ -163,33 +198,13 @@ const CreateInvoice = ({ navigation }) => {
 
       <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
         <Button title={"Post & Share"} onPress={() => {}} />
-        <Button title={"Post Only"} onPress={() => {}} />
+        <Button title={"Post Only"} onPress={postInvoiceOnly} />
       </View>
       <BottomBarDocumentDetails
-        sum_total={totalAmountCalculation()}
-        vat_amount={vatCalculation()}
-        total_excluding={vatExcludingCalculation()}
+        sum_total={totalAmount}
+        vat_amount={vatAmount}
+        total_excluding={totalExcluding}
       />
-
-      <View>
-        <Modal visible={false}>
-          <View
-            style={{ justifyContent: "center", alignItems: "center", flex: 1 }}
-          >
-            <Text>Date Picker</Text>
-
-            <View>
-              <Button
-                title={"Set"}
-                onPress={() => {
-                  setDateModal(false);
-                }}
-              />
-              <Button title={"Cancel"} onPress={() => {}} />
-            </View>
-          </View>
-        </Modal>
-      </View>
     </View>
   );
 };
@@ -197,10 +212,47 @@ const CreateInvoice = ({ navigation }) => {
 const styles = StyleSheet.create({
   body: {
     flex: 1,
-    // justifyContent: 'center',
-    // alignItems: 'center',
     backgroundColor: "white",
+  },
+  quantity_buttons: {
+    backgroundColor: "#2983F1",
+    borderRadius: 15,
+    margin: 10,
+  },
+  quantity_buttons_view: {
+    padding: 10,
+  },
+  quantity_text_view: {
+    flexDirection: "row",
+    justifyContent: "space-evenly",
+  },
+  quantity_buttons_view_secondary: {
+    justifyContent: "space-evenly",
+    flexDirection: "row",
   },
 });
 
 export default CreateInvoice;
+
+const totalAmountCalculation = () => {
+  // @ts-ignore
+  return Array.from(invoiceItems)
+    .reduce((acc, cur) => acc + cur.total_amount, 0)
+    .toFixed(2);
+};
+
+const vatCalculation = () => {
+  const totalAmount = Array.from(invoiceItems).reduce(
+    (acc, cur) => acc + cur.total_amount,
+    0
+  );
+  return ((totalAmount * 15) / 115).toFixed(2);
+};
+
+const vatExcludingCalculation = () => {
+  const totalAmount = Array.from(invoiceItems).reduce(
+    (acc, cur) => acc + cur.total_amount,
+    0
+  );
+  return (totalAmount * (100 / 115)).toFixed(2);
+};

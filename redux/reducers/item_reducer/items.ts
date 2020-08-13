@@ -24,7 +24,7 @@ const itemInitialState: Item[] = [
     item_id: 3,
     item_type: "Physical",
     item_code: "10",
-    item_description: "Cement",
+    item_description: "chrome",
     quantity: 809809809,
     cost_price: 50,
     selling_price: 20,
@@ -34,40 +34,19 @@ const itemInitialState: Item[] = [
     item_id: 4,
     item_type: "Physical",
     item_code: "11",
-    item_description: "Cement",
+    item_description: "Heets",
     quantity: 809809809,
     cost_price: 50,
-    selling_price: 50,
+    selling_price: 20,
   },
-
   {
     item_id: 5,
     item_type: "Physical",
     item_code: "12",
-    item_description: "Cement",
+    item_description: "modifier",
     quantity: 809809809,
     cost_price: 50,
-    selling_price: 29.3,
-  },
-
-  {
-    item_id: 6,
-    item_type: "Physical",
-    item_code: "13",
-    item_description: "Cement",
-    quantity: 809809809,
-    cost_price: 50,
-    selling_price: 11.5,
-  },
-
-  {
-    item_id: 7,
-    item_type: "Physical",
-    item_code: "14",
-    item_description: "Cement",
-    quantity: 809809809,
-    cost_price: 50,
-    selling_price: 91.2,
+    selling_price: 20,
   },
 ];
 

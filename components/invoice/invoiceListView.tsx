@@ -1,14 +1,20 @@
 import React from "react";
-import { Text, View } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 import InvoiceFlatListView from "./invoiceFlatListView";
 
 const InvoiceListView = () => {
   return (
-    <View style={{ backgroundColor: "blue" }}>
+    <View style={styles.body}>
       <InvoiceFlatListView />
-      <Text>Lists Of invoices</Text>
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  body: {
+    flex: 1,
+    backgroundColor: "#2983F1",
+  },
+});
 
 export default InvoiceListView;

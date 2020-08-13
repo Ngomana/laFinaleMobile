@@ -8,6 +8,7 @@ import {
   createInvoiceCustomerSlice,
   createInvoiceDetailsSlice,
 } from "./Invoice_reducer/createInvoice";
+import invoiceDocumentDetailsSlice from "./document_details/invoice_document";
 
 export const reducer = combineReducers({
   items: itemsSlice.reducer,
@@ -16,5 +17,6 @@ export const reducer = combineReducers({
   quotations: quotationSlice.reducer,
   customerToInvoice: createInvoiceCustomerSlice.reducer,
   documentToInvoice: createInvoiceDetailsSlice.reducer,
+  invoiceDocumentDetails: invoiceDocumentDetailsSlice.reducer,
   // other reducers should be entered here as well
 });

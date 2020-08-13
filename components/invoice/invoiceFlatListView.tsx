@@ -18,28 +18,31 @@ const InvoiceFlatListView = () => {
 
   return (
     <View style={styles.body}>
-      <View>
-        <FlatList
-          data={invoices}
-          renderItem={({ item }) => {
-            return (
+      <FlatList
+        data={invoices}
+        renderItem={({ item }) => {
+          return (
+            <View>
               <View>
-                <View>
-                  <Text>{item.invoice_no}</Text>
-                  <Text>{item.invoice_date}</Text>
-                </View>
-
-                <View>
-                  <Button title={"Edit"} onPress={() => {}} />
-                  <Button title={"Delete"} onPress={() => {}} />
-                  <Button title={"Share"} onPress={() => {}} />
-                </View>
+                <Text>{item.invoice_no}</Text>
+                <Text>{item.invoice_date}</Text>
+                <Text>{item.customer_code}</Text>
+                <Text>{item.customer}</Text>
+                <Text>{item.vat_amount}</Text>
+                <Text>{item.vat_excluding}</Text>
+                <Text>{item.total_amount.toString()}</Text>
               </View>
-            );
-          }}
-        />
-      </View>
-      <Text>Test</Text>
+
+              <View style={styles.button_body}>
+                <Button color={"white"} title={"E-Mail"} onPress={() => {}} />
+                <Button color={"white"} title={"Share"} onPress={() => {}} />
+                <Button color={"white"} title={"Edit"} onPress={() => {}} />
+                <Button color={"red"} title={"Delete"} onPress={() => {}} />
+              </View>
+            </View>
+          );
+        }}
+      />
     </View>
   );
 };
@@ -54,6 +57,11 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: "pink",
+  },
+
+  button_body: {
+    flexDirection: "row",
+    // justifyContent: "space-between",
   },
 });
 
