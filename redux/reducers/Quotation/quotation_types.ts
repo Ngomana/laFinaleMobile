@@ -1,6 +1,7 @@
 export interface Quotation {
-  quote_no: number;
-  quote_date: string;
+  document_no: number;
+  document_date: string;
+  customer_code: string;
   customer: string;
   vat_amount: number;
   vat_excluding: number;

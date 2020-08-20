@@ -46,12 +46,14 @@ export const createInvoiceDetailsSlice = createSlice({
     },
     add_quantity: (state, { payload }) => {
       const quantityToEdit = state.find((item) => item.code === payload.code);
-      const testing = state;
       if (quantityToEdit) {
-        let newItemQuantity: any;
         quantityToEdit.quantity = ++quantityToEdit.quantity;
         quantityToEdit.total_amount =
           quantityToEdit.selling_price * quantityToEdit.quantity;
+        quantityToEdit.vat =
+          quantityToEdit.selling_price * quantityToEdit.quantity * (15 / 115);
+        quantityToEdit.total_exclusive =
+          quantityToEdit.quantity * quantityToEdit.selling_price * (100 / 115);
       }
     },
     subtract_quantity: (state, { payload }) => {

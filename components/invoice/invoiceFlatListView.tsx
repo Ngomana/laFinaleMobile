@@ -2,6 +2,9 @@ import React, { useState } from "react";
 import { Button, FlatList, Modal, StyleSheet, Text, View } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import CreateInvoice from "./createInvoiceModal";
+import MainButton from "../GlobalComponents/MainButton";
+import DeleteButton from "../GlobalComponents/DeleteButton";
+import FlatListButton from "../GlobalComponents/FlatListButtons";
 
 const InvoiceFlatListView = () => {
   const [invoice_no, setInvoiceNo] = useState("");
@@ -34,10 +37,10 @@ const InvoiceFlatListView = () => {
               </View>
 
               <View style={styles.button_body}>
-                <Button color={"white"} title={"E-Mail"} onPress={() => {}} />
-                <Button color={"white"} title={"Share"} onPress={() => {}} />
-                <Button color={"white"} title={"Edit"} onPress={() => {}} />
-                <Button color={"red"} title={"Delete"} onPress={() => {}} />
+                <FlatListButton buttonCaption={"E-Mail"} />
+                <FlatListButton buttonCaption={"Share"} />
+                <FlatListButton buttonCaption={"Edit"} />
+                <DeleteButton buttonCaption={"Delete"} />
               </View>
             </View>
           );
@@ -61,7 +64,8 @@ const styles = StyleSheet.create({
 
   button_body: {
     flexDirection: "row",
-    // justifyContent: "space-between",
+    height: 40,
+    justifyContent: "space-between",
   },
 });
 

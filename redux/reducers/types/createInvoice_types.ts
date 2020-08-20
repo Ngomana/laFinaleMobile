@@ -8,6 +8,8 @@ export interface IDocumentDetails {
   description: string;
   quantity: number;
   selling_price: number;
+  vat: number;
+  total_exclusive: number;
   total_amount: number;
 }
 

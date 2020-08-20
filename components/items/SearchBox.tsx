@@ -27,11 +27,15 @@ const styles = StyleSheet.create({
   //search box view attributes
   body_text_view: {
     flex: 1,
+    marginBottom: 20,
   },
   search_box: {
     backgroundColor: "white",
-    margin: 5,
-    height: 30,
+    // margin: 5,
+    marginLeft: 5,
+    marginRight: 5,
+    height: 34,
+    fontSize: 10,
   },
 });
 

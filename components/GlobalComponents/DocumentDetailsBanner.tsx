@@ -1,5 +1,6 @@
 import React from "react";
-import { Button, StyleSheet, Text, View } from "react-native";
+import { Button, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import Icon from "react-native-vector-icons/Ionicons";
 
 const CustomerDetailsBanner = ({
   customerCode,
@@ -9,6 +10,7 @@ const CustomerDetailsBanner = ({
   invoiceDueDate,
   invoiceDateButton,
   invoiceDueDateButton,
+  onPressDateHandler,
 }: any) => {
   return (
     <View>
@@ -16,26 +18,51 @@ const CustomerDetailsBanner = ({
         <View>
           <Text style={styles.heading}>Customer Details:</Text>
           <View style={styles.customer_details}>
-            <Text style={styles.text_style}>Customer Code: {customerCode}</Text>
-            <Text style={styles.text_style}>Customer Name: {customerName}</Text>
+            <Text style={styles.text_style}>Code: {customerCode}</Text>
+            <Text style={styles.text_style}>Name: {customerName}</Text>
             <Text style={styles.text_style}>Current Balance: R 0.00</Text>
           </View>
         </View>
         <View>
           <Text style={styles.heading}>Document Details:</Text>
-          <View>
-            <Text style={styles.text_style}>Invoice Date: {invoiceDate}</Text>
-            <Text style={styles.text_style}>
-              Invoice Number: {invoiceNumber}
-            </Text>
-            <Text style={styles.text_style}>Due Date: {invoiceDueDate} </Text>
+          <View
+            style={{
+              marginRight: 10,
+            }}
+          >
+            <View
+              style={{
+                flexDirection: "row",
+                // justifyContent: "space-between",
+
+                alignItems: "center",
+              }}
+            >
+              <TouchableOpacity onPress={() => {}}>
+                <Icon name="add-circle" size={25} color="black" />
+              </TouchableOpacity>
+
+              <Text style={styles.text_style} onPress={onPressDateHandler}>
+                Invoice Date: {invoiceDate}
+              </Text>
+            </View>
+
+            {/*<Text style={styles.text_style}>*/}
+            {/*  Invoice Number: {invoiceNumber}*/}
+            {/*</Text>*/}
+            <View
+              style={{
+                flexDirection: "row",
+                // justifyContent: "space-between",
+
+                alignItems: "center",
+              }}
+            >
+              <Icon name="add-circle-outline" size={25} color="#4F8EF7" />
+              <Text style={styles.text_style}>Due Date: {invoiceDueDate} </Text>
+            </View>
           </View>
         </View>
-      </View>
-
-      <View style={styles.date_body}>
-        <Button title={"Invoice Date"} onPress={invoiceDateButton} />
-        <Button title={"Due Date"} onPress={invoiceDueDateButton} />
       </View>
     </View>
   );
