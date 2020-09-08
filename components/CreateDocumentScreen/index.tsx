@@ -6,7 +6,7 @@ import BottomBarDocumentDetails from "../GlobalComponents/ButtomBarTotalList";
 import SearchBox from "../items/SearchBox";
 
 const CreateDocumentScreen = ({ route }: any) => {
-  const [documentItems, setDocumentItems] = useState({ item: [{}] });
+  const [documentItems, setDocumentItems] = useState([]);
   const items = useSelector((state: RootStateOrAny) => state.items);
   const {
     customerCode,
@@ -23,6 +23,16 @@ const CreateDocumentScreen = ({ route }: any) => {
     quantity: number,
     selling_price: number
   ) => {
+    // @ts-ignore
+    setDocumentItems([
+      ...documentItems,
+      {
+        item_code,
+        item_description,
+        quantity,
+        selling_price,
+      },
+    ]);
     console.log(documentItems);
   };
 
@@ -32,7 +42,10 @@ const CreateDocumentScreen = ({ route }: any) => {
     quantity: number,
     selling_price: number
   ) => {
-    console.log(item_code, item_description, quantity, selling_price);
+    // console.log(item_code, item_description, quantity, selling_price);
+    // @ts-ignore
+
+    console.log(documentItems);
   };
   return (
     <View style={styles.body}>

@@ -1,15 +1,13 @@
-import 'react-native-gesture-handler';
-import React from 'react';
-import {NavigationContainer} from '@react-navigation/native';
-import {enableMapSet} from 'immer';
+import "react-native-gesture-handler";
+import React, { useEffect } from "react";
+import { NavigationContainer } from "@react-navigation/native";
 
 //Invoice screen
-import StackNavigator from './navigation/StackNavigator';
+import StackNavigator from "./navigation/StackNavigator";
 
-import {Provider} from 'react-redux';
+import { Provider } from "react-redux";
 // import store from './redux';
-import {store} from './redux';
-enableMapSet();
+import { store } from "./redux";
 
 const MainAppEntry = () => {
   return (

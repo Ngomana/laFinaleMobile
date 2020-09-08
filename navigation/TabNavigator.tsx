@@ -1,10 +1,9 @@
-import * as React from 'react';
-import {Text, View} from 'react-native';
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import InvoiceScreen from '../components/invoice';
-import QuotationScreen from '../components/quotation';
-import CustomerScreen from '../components/customers';
-import ItemsScreen from '../components/items';
+import * as React from "react";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import InvoiceScreen from "../components/invoice";
+import QuotationScreen from "../components/quotation";
+import CustomerScreen from "../components/customers";
+import ItemsScreen from "../components/items";
 
 const MainScreen = createBottomTabNavigator();
 
