@@ -33,7 +33,7 @@ const customerSlice = createSlice({
       reducer: (state, { payload }: PayloadAction<Customer>) => {
         state.push(payload);
       },
-      prepare: (customer: Partial<Customer>) => ({
+      prepare: (customer: any) => ({
         payload: customer,
       }),
     },

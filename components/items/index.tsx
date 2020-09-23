@@ -1,20 +1,14 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, StyleSheet, Text, TextInput, View } from "react-native";
-import database from "../../watermellonDb";
 
 const ItemsScreen = () => {
   const [itemCode, setItemCode] = useState("");
+
   const itemCodeInput = (e) => {
     const value = e.nativeEvent.text;
     setItemCode(value);
   };
-
-  const testing = async () => {
-    const itemCollection = database.collections.get("items");
-    return await itemCollection.create((item) => {
-      item.item_code = itemCode;
-    });
-  };
+  const testing = async () => {};
   return (
     <View style={styles.body}>
       {/*<ItemListView />*/}
