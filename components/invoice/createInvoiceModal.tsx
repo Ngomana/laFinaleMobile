@@ -40,6 +40,7 @@ const CreateInvoice = ({ navigation }: any) => {
 
   const invoices = useSelector((state: RootStateOrAny) => state.invoices);
 
+  
   const items = useSelector((state: RootStateOrAny) => {
     if (searchValue.length === 0) {
       return state.items;
@@ -54,6 +55,7 @@ const CreateInvoice = ({ navigation }: any) => {
 
   const dispatch = useDispatch();
 
+  
   // @ts-ignore
   const invoiceNumber = Math.max(
     ...invoices.map((invoice: number) => invoice.invoice_no),
