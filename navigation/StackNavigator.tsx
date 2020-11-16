@@ -1,24 +1,24 @@
 import * as React from "react";
-import { Button } from "react-native";
+import { Button, Platform, View } from "react-native";
 import { createStackNavigator, HeaderTitle } from "@react-navigation/stack";
 import Home from "./TabNavigator";
 import SelectCustomerScreen from "../components/SelectCustomer/index";
-import CreateInvoice from "../components/invoice/createInvoiceModal";
-import { useDispatch } from "react-redux";
 import MainButton from "../components/GlobalComponents/MainButton";
 import { useState } from "react";
 import CreateDocumentScreen from "../components/CreateDocumentScreen";
 import { useInvoiceType, useQuotationType } from "../functions/documentTpyes";
+import { DocButton } from "../components/documentButtons/documentButton";
+import { appDispatch } from "../redux/index";
+import { removeAllAction } from "../redux/reducers/createDocuments/index";
 
 const Stack = createStackNavigator();
 
 const StackNavigator = ({ route }: any) => {
   const [titleData, setTitleData] = useState("");
-  const dispatch = useDispatch();
+  const dispatch = appDispatch();
 
-  const restInvoiceItems = () => {
-    // @ts-ignore
-    dispatch(removeAllItems());
+  const clearDocuments = () => {
+    dispatch(removeAllAction());
   };
   return (
     <Stack.Navigator>
@@ -31,28 +31,32 @@ const StackNavigator = ({ route }: any) => {
             headerTitle: "Mars Industries",
             headerMode: "screen",
             headerRight: () => (
-              <MainButton
-                buttonCaption={"Invoice"}
-                onPressHandler={() => {
-                  navigation.navigate("selectCustomerScreenInvoice", {
-                    documentType: useInvoiceType,
-                  });
+              <View style={{ padding: 5 }}>
+                <DocButton
+                  buttonText="Invoice"
+                  buttonPress={() => {
+                    navigation.navigate("selectCustomerScreenInvoice", {
+                      documentType: useInvoiceType,
+                    });
 
-                  setTitleData(useInvoiceType);
-                }}
-              />
+                    setTitleData(useInvoiceType);
+                  }}
+                />
+              </View>
             ),
             headerLeft: () => (
-              <MainButton
-                buttonCaption={"Quote"}
-                onPressHandler={() => {
-                  navigation.navigate("selectCustomerScreenInvoice", {
-                    documentType: useQuotationType,
-                  });
+              <View style={{ padding: 5 }}>
+                <DocButton
+                  buttonText="Quote"
+                  buttonPress={() => {
+                    navigation.navigate("selectCustomerScreenInvoice", {
+                      documentType: useQuotationType,
+                    });
 
-                  setTitleData(useQuotationType);
-                }}
-              />
+                    setTitleData(useQuotationType);
+                  }}
+                />
+              </View>
             ),
           };
         }}
@@ -62,21 +66,13 @@ const StackNavigator = ({ route }: any) => {
         name={"selectCustomerScreenInvoice"}
         component={SelectCustomerScreen}
         options={{
-          title: `Select Customer To ${titleData}`,
+          title: `Select Customer`,
+
           headerTitleStyle: {
             fontSize: 18,
+            fontWeight: "bold",
+            // headerTitleAlign: "center",
           },
-        }}
-      />
-
-      <Stack.Screen
-        name={"selectInvoiceItems"}
-        component={CreateInvoice}
-        options={{
-          title: "Select Invoice Items",
-          headerRight: () => (
-            <Button title={"Reset"} onPress={restInvoiceItems} />
-          ),
         }}
       />
 
@@ -88,7 +84,18 @@ const StackNavigator = ({ route }: any) => {
           const { documentType }: string = route.params;
           return {
             title: `Create ${documentType}`,
-            headerRight: () => <MainButton buttonCaption={"Clear"} />,
+            headerRight: () => (
+              <View
+                style={{
+                  padding: Platform.select({
+                    ios: 5,
+                    android: 10,
+                  }),
+                }}
+              >
+                <DocButton buttonText="Clear" buttonPress={clearDocuments} />
+              </View>
+            ),
           };
         }}
       />

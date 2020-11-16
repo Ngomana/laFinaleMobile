@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from "react";
 import {
   View,
   Text,
@@ -7,21 +7,21 @@ import {
   StyleSheet,
   Modal,
   NativeSyntheticEvent,
-} from 'react-native';
-import {useDispatch, useSelector} from 'react-redux';
+} from "react-native";
+import { useDispatch, useSelector } from "react-redux";
 import {
   deleteItemAction,
   updateItemAction,
-} from '../../redux/reducers/item_reducer/items';
-import EditItems from './EditItem';
+} from "../../redux/reducers/item/items";
+import EditItems from "./EditItem";
 
 const ItemView = () => {
-  const [item_id, set_item_id] = useState('');
-  const [item_code, set_item_code] = useState('');
-  const [item_description, set_item_description] = useState('');
-  const [item_cost_price, set_item_cost_price] = useState('');
-  const [item_quantity, set_item_quantity] = useState('');
-  const [item_selling_price, set_item_selling_price] = useState('');
+  const [item_id, set_item_id] = useState("");
+  const [item_code, set_item_code] = useState("");
+  const [item_description, set_item_description] = useState("");
+  const [item_cost_price, set_item_cost_price] = useState("");
+  const [item_quantity, set_item_quantity] = useState("");
+  const [item_selling_price, set_item_selling_price] = useState("");
   const [modal, setModal] = useState(false);
 
   // @ts-ignore
@@ -38,14 +38,14 @@ const ItemView = () => {
         cost_price: parseFloat(item_cost_price),
         quantity: parseFloat(item_quantity),
         selling_price: parseFloat(item_selling_price),
-      }),
+      })
     );
   };
 
   const cancelEditItemsHandler = () => {
-    set_item_id('');
-    set_item_code('');
-    set_item_description('');
+    set_item_id("");
+    set_item_code("");
+    set_item_description("");
     set_item_cost_price(0);
     set_item_quantity(0);
     set_item_selling_price(0);
@@ -57,7 +57,7 @@ const ItemView = () => {
   };
 
   const item_description_change_handler = (
-    e: NativeSyntheticEvent<string>,
+    e: NativeSyntheticEvent<string>
   ): void => {
     set_item_description(e.nativeEvent.text);
   };
@@ -71,7 +71,7 @@ const ItemView = () => {
   };
 
   const item_selling_price_change_handler = (
-    e: NativeSyntheticEvent<string>,
+    e: NativeSyntheticEvent<string>
   ) => {
     set_item_selling_price(e.nativeEvent.text);
   };
@@ -82,7 +82,7 @@ const ItemView = () => {
           data={items}
           // keyExtractor={(item, index) => 'key' + index}
           keyExtractor={(item, index) => index.toString()}
-          renderItem={({item}) => (
+          renderItem={({ item }) => (
             <View key={item.item_code}>
               <Text>{item.item_id}</Text>
               <Text>{item.item_type}</Text>
@@ -95,7 +95,7 @@ const ItemView = () => {
                 <Button
                   title="Delete"
                   onPress={() => {
-                    dispatch(deleteItemAction({item_id: item.item_id}));
+                    dispatch(deleteItemAction({ item_id: item.item_id }));
                   }}
                 />
                 <Button
@@ -115,7 +115,7 @@ const ItemView = () => {
           )}
         />
       </View>
-      <Modal visible={modal} animationType={'slide'}>
+      <Modal visible={modal} animationType={"slide"}>
         <EditItems
           //item code
           onChangeItemCode={item_code_change_handler}
@@ -149,8 +149,8 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   modal_body: {
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
     flex: 1,
   },
 });

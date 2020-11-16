@@ -10,7 +10,7 @@ const itemInitialState: Item[] = [
     quantity: 80,
     cost_price: 50,
     selling_price: 166.99,
-    chargeVatOnItem: true,
+    chargeVatOnItem: false,
   },
   {
     item_id: 2,

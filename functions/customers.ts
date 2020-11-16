@@ -1,8 +1,8 @@
-import { iCustomer } from "../redux/reducers/Customer_reducer/customer_types";
+import { iCustomer } from "../redux/reducers/customer/customer_types";
 import { getRepository } from "typeorm/browser";
 import { Customer } from "../typeorm/Entity/Customer";
 import { appDispatch } from "../redux/index";
-import { createCustomerAction } from "../redux/reducers/Customer_reducer/customer";
+import { createCustomerAction } from "../redux/reducers/customer/customer";
 
 export const createCustomer = async ({
   customerId,

@@ -10,9 +10,9 @@ import DocumentItemsFlatList from "../GlobalComponents/Document_Item_FlatList";
 import BottomBarDocumentDetails from "../GlobalComponents/ButtomBarTotalList";
 import { DefaultSearchBox } from "../textBox/searchBox";
 import { appDispatch, appSelector } from "../../redux/index";
-import { Item } from "redux/reducers/item_reducer/item_types";
+import { Item } from "redux/reducers/item/item_types";
 import {
-  addItemDocumentactions,
+  addItemDocumentActions,
   deleteAction,
   incrementAction,
   decrementAction,
@@ -36,7 +36,6 @@ const CreateDocumentScreen = ({ route }: any) => {
   } = route.params;
 
   const dispatch = appDispatch();
-
   const items = appSelector((state: RootStateOrAny) => {
     if (searchedItems.length === 0) {
       return state.items;
@@ -81,11 +80,11 @@ const CreateDocumentScreen = ({ route }: any) => {
     selling_price: number
   ) => {
     await dispatch(
-      addItemDocumentactions({
+      addItemDocumentActions({
         documentType: documentType,
         item_code,
         item_description,
-        item_quauntity: 1,
+        item_quantity: 1,
         item_selling_price: selling_price.toFixed(2),
         vat_amount: (selling_price * vatAmountCalcu).toFixed(2),
         total_excluding: (selling_price * vatExclusiveCalcu).toFixed(2),
@@ -143,34 +142,35 @@ const CreateDocumentScreen = ({ route }: any) => {
     chargeVatOnItem ? console.log(false) : null;
   };
 
-  const editQuantityManualy = (
-    e: NativeSyntheticEvent<TextInputChangeEventData>,
-    item_code
+  const editQuantityManually = (
+    item_code,
+    e
+    // e: NativeSyntheticEvent<TextInputChangeEventData>,
   ) => {
-    const value = e.nativeEvent.text;
+    // const value = e.nativeEvent.text;
 
-    console.log(item_code);
-    // dispatch(
-    //   editAction({
-    //     item_code: item_code,
-    //     item_quantity: value,
-    //   })
-    // );
+    // console.log(item_code, e);
+    dispatch(
+      editAction({
+        item_code: item_code,
+        item_quantity: e,
+      })
+    );
   };
 
   //calculations
-  const totalAmount = Array.from(documentItems).reduce(
-    (acc: number, cur: number) => acc + parseFloat(cur.total_amount),
+  const totalAmount: any = Array.from(documentItems).reduce(
+    (acc: number, cur: any) => acc + parseFloat(cur.total_amount),
     0
   );
 
-  const totalVatAmount = Array.from(documentItems).reduce(
-    (acc: number, cur: number) => acc + parseFloat(cur.vat_amount),
+  const totalVatAmount: any = Array.from(documentItems).reduce(
+    (acc: number, cur: any) => acc + parseFloat(cur.vat_amount),
     0
   );
 
-  const totalVatExclusive = Array.from(documentItems).reduce(
-    (acc: number, cur: number) => acc + parseFloat(cur.total_excluding),
+  const totalVatExclusive: any = Array.from(documentItems).reduce(
+    (acc: number, cur: any) => acc + parseFloat(cur.total_excluding),
     0
   );
 
@@ -188,12 +188,12 @@ const CreateDocumentScreen = ({ route }: any) => {
         documentItems={documentItems}
         incrementQuantity={incrementItem}
         decrementQuantity={decrementItem}
-        editQuantityValue={editQuantityManualy}
+        editQuantityValue={editQuantityManually}
       />
       <BottomBarDocumentDetails
-        sum_total={totalAmount}
-        vat_amount={totalVatAmount}
-        total_excluding={totalVatExclusive}
+        sum_total={totalAmount.toFixed(2)}
+        vat_amount={totalVatAmount.toFixed(2)}
+        total_excluding={totalVatExclusive.toFixed(2)}
         customer_code={customerCode}
         customer_name={customerName}
         customer_balance={customerBalance}

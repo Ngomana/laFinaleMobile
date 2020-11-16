@@ -22,8 +22,12 @@ export const HeadingText = ({ lblText }: Partial<labelTextProps>) => {
   );
 };
 
-export const HeaderTitle = ({ lblText }: Partial<labelTextProps>) => {
-  return <Text style={styles.headerTitle}>{lblText}</Text>;
+export const HeaderTitle = ({ lblText, lblText2 }: Partial<labelTextProps>) => {
+  return (
+    <Text style={styles.headerTitle}>
+      {lblText} {lblText2}
+    </Text>
+  );
 };
 
 const styles = StyleSheet.create({

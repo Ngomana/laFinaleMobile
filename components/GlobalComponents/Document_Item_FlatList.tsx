@@ -1,26 +1,16 @@
 import { DocButton, DocDeleteButton } from "../documentButtons/documentButton";
 import { UseLabel } from "../textLalbel";
 import React from "react";
-import {
-  FlatList,
-  StyleSheet,
-  Switch,
-  Text,
-  TextInput,
-  View,
-} from "react-native";
+import { FlatList, StyleSheet, TextInput, View } from "react-native";
 
 interface iItemFlatList {
   itemData: any;
   addItem: any;
   removeItem: any;
-  doucmentItems: any;
+  documentItems: any;
   incrementQuantity: any;
   decrementQuantity: any;
-  editQuantityHandler: any;
   editQuantityValue: any;
-  chargeVatOnChange: any;
-  chargeVatValue: boolean;
 }
 
 const DocumentItemsFlatList = ({
@@ -30,23 +20,14 @@ const DocumentItemsFlatList = ({
   documentItems,
   incrementQuantity,
   decrementQuantity,
-  editQuantityHandler,
   editQuantityValue,
-  chargeVatOnChange,
-  chargeVatValue,
-}) => {
+}: iItemFlatList) => {
   return (
     <FlatList
       data={itemData}
       keyExtractor={(item, index) => index.toString()}
       renderItem={({
-        item: {
-          item_code,
-          item_description,
-          quantity,
-          selling_price,
-          chargeVatOnItem,
-        },
+        item: { item_code, item_description, quantity, selling_price },
       }) => {
         return (
           <View style={styles.body}>
@@ -91,9 +72,9 @@ const DocumentItemsFlatList = ({
                           }}
                         />
                         <TextInput
-                          value={product.item_quauntity.toString()}
-                          onChange={() => {
-                            editQuantityValue(product.item_code);
+                          value={product.item_quantity.toString()}
+                          onChangeText={(e) => {
+                            editQuantityValue(item_code, e);
                           }}
                           placeholder={"Qty"}
                           keyboardAppearance={"default"}

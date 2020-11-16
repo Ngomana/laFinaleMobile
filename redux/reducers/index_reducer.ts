@@ -1,7 +1,7 @@
 // @ts-ignore
 import { combineReducers } from "@reduxjs/toolkit";
-import itemsSlice from "./item_reducer/items";
-import customerSlice from "./Customer_reducer/customer";
+import itemsSlice from "./item/items";
+import customerSlice from "./customer/customer";
 import documentsSlice from "./documents/documents";
 import createDocumentSlice from "./createDocuments/index";
 

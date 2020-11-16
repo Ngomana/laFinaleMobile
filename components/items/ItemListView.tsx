@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from "react";
 import {
   Button,
   Text,
@@ -7,14 +7,14 @@ import {
   FlatList,
   Modal,
   StyleSheet,
-} from 'react-native';
-import {useDispatch, useSelector} from 'react-redux';
-import {deleteItemAction} from '../../redux/reducers/item_reducer/items';
-import {State} from 'react-native-gesture-handler';
-import SearchBox from './SearchBox';
-import CreateItemButton from './CreateItemButton';
-import ItemView from './ItemView';
-import {AddItem} from './AddItem';
+} from "react-native";
+import { useDispatch, useSelector } from "react-redux";
+import { deleteItemAction } from "../../redux/reducers/item/items";
+import { State } from "react-native-gesture-handler";
+import SearchBox from "./SearchBox";
+import CreateItemButton from "./CreateItemButton";
+import ItemView from "./ItemView";
+import { AddItem } from "./AddItem";
 
 const ItemListView = () => {
   const [modal, setModal] = useState(false);
@@ -37,7 +37,7 @@ const ItemListView = () => {
 const styles = StyleSheet.create({
   body: {
     flex: 1,
-    backgroundColor: '#04264a',
+    backgroundColor: "#04264a",
   },
 });
 
