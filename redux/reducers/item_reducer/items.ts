@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { Item } from "../types/item_types";
+import { Item } from "./item_types";
 
 const itemInitialState: Item[] = [
   {
@@ -10,6 +10,7 @@ const itemInitialState: Item[] = [
     quantity: 80,
     cost_price: 50,
     selling_price: 166.99,
+    chargeVatOnItem: true,
   },
   {
     item_id: 2,
@@ -19,6 +20,7 @@ const itemInitialState: Item[] = [
     quantity: 809809809,
     cost_price: 50,
     selling_price: 129.99,
+    chargeVatOnItem: true,
   },
   {
     item_id: 3,
@@ -28,6 +30,7 @@ const itemInitialState: Item[] = [
     quantity: 809809809,
     cost_price: 50,
     selling_price: 20,
+    chargeVatOnItem: true,
   },
 
   {
@@ -38,6 +41,7 @@ const itemInitialState: Item[] = [
     quantity: 809809809,
     cost_price: 50,
     selling_price: 20,
+    chargeVatOnItem: true,
   },
   {
     item_id: 5,
@@ -47,6 +51,7 @@ const itemInitialState: Item[] = [
     quantity: 809809809,
     cost_price: 50,
     selling_price: 20,
+    chargeVatOnItem: true,
   },
 ];
 
@@ -58,7 +63,7 @@ const itemsSlice = createSlice({
       reducer: (state, { payload }: PayloadAction<Item>) => {
         state.push(payload);
       },
-      prepare: (item: Partial<Item>) => ({
+      prepare: (item: Item) => ({
         payload: item,
       }),
     },
@@ -82,7 +87,6 @@ const itemsSlice = createSlice({
     },
   },
 });
-
 
 export const {
   create: createItemAction,

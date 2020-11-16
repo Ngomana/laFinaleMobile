@@ -1,17 +1,39 @@
 import "react-native-gesture-handler";
-import React from "react";
+import React, { ReactNode, useCallback, useEffect, useState } from "react";
 import { NavigationContainer } from "@react-navigation/native";
-
-//Invoice screen
 import StackNavigator from "./navigation/StackNavigator";
-
 import { Provider } from "react-redux";
-// import store from './redux';
 import { store } from "./redux";
+import { createConnection, getRepository, Connection } from "typeorm/browser";
+import { Customer } from "./typeorm/Entity/Customer";
 
-//creating sqlite database
+const MainAppEntry: () => ReactNode = () => {
+  const [defaultConnect, setConnection] = useState<Connection | null>(null);
 
-const MainAppEntry = () => {
+  const setupConnection = useCallback(async () => {
+    try {
+      const connection = await createConnection({
+        type: "react-native",
+        database: "numberz",
+        location: "~default",
+        logging: ["error", "query", "schema"],
+        synchronize: true,
+        entities: [Customer],
+      });
+
+      await setConnection(connection);
+    } catch (error) {
+      console.log(error);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (!defaultConnect) {
+      setupConnection();
+    }
+
+    //test
+  }, []);
   return (
     <Provider store={store}>
       <NavigationContainer>

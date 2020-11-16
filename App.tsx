@@ -1,5 +1,5 @@
-import React from 'react';
-import MainAppEntry from './Main';
+import React, { ReactNode, useEffect, useState } from "react";
+import MainAppEntry from "./Main";
 
 const App = () => {
   return <MainAppEntry />;

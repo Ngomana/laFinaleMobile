@@ -1,11 +1,15 @@
 import React, { useEffect } from "react";
 import { StyleSheet, View } from "react-native";
-import InvoiceListView from "./invoiceListView";
+import { useSelector } from "react-redux";
+import DocumentFlatList from "../GlobalComponents/DocumentFlatList";
 
 const InvoiceScreen = () => {
+  const invoices = useSelector((state: any) => {
+    state.inovices;
+  });
   return (
     <View style={styles.body}>
-      <InvoiceListView />
+      <DocumentFlatList documentData={invoices} />
     </View>
   );
 };
@@ -13,7 +17,7 @@ const InvoiceScreen = () => {
 const styles = StyleSheet.create({
   body: {
     flex: 1,
-    backgroundColor: "orange",
+    // backgroundColor: "orange",
   },
 });
 

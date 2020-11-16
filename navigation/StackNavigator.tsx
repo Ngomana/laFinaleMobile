@@ -5,10 +5,10 @@ import Home from "./TabNavigator";
 import SelectCustomerScreen from "../components/SelectCustomer/index";
 import CreateInvoice from "../components/invoice/createInvoiceModal";
 import { useDispatch } from "react-redux";
-import { removeAllItems } from "../redux/reducers/Invoice_reducer/createInvoice";
 import MainButton from "../components/GlobalComponents/MainButton";
 import { useState } from "react";
 import CreateDocumentScreen from "../components/CreateDocumentScreen";
+import { useInvoiceType, useQuotationType } from "../functions/documentTpyes";
 
 const Stack = createStackNavigator();
 
@@ -35,10 +35,10 @@ const StackNavigator = ({ route }: any) => {
                 buttonCaption={"Invoice"}
                 onPressHandler={() => {
                   navigation.navigate("selectCustomerScreenInvoice", {
-                    documentType: "Invoice",
+                    documentType: useInvoiceType,
                   });
 
-                  setTitleData("Invoice");
+                  setTitleData(useInvoiceType);
                 }}
               />
             ),
@@ -47,10 +47,10 @@ const StackNavigator = ({ route }: any) => {
                 buttonCaption={"Quote"}
                 onPressHandler={() => {
                   navigation.navigate("selectCustomerScreenInvoice", {
-                    documentType: "Quote",
+                    documentType: useQuotationType,
                   });
 
-                  setTitleData("Quote");
+                  setTitleData(useQuotationType);
                 }}
               />
             ),

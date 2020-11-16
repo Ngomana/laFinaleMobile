@@ -12,10 +12,10 @@ const MainButton = ({ onPressHandler, buttonCaption }: any) => {
 };
 
 const styles = StyleSheet.create({
-  body: { flex: 1, justifyContent: "center", alignItems: "center" },
+  body: { justifyContent: "center", alignItems: "center", margin: 5 },
   button_body: {
     borderWidth: 0.3,
-    borderColor: "white",
+    borderColor: "rgb(5,34,79)",
     // width: "70%",
     borderRadius: 5,
   },

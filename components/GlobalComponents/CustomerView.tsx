@@ -16,8 +16,18 @@ const CustomerView = ({ code, name, email, balance, buttonPress }: any) => {
 
 const styles = StyleSheet.create({
   body: {
+    borderRadius: 10,
+    margin: 10,
     backgroundColor: "white",
-    margin: 5,
+    shadowColor: "rgb(0, 0, 0)",
+    shadowOffset: {
+      width: 3,
+      height: 3,
+    },
+    shadowOpacity: 0.5,
+    shadowRadius: 5,
+    elevation: 2,
+    padding: 10,
   },
 });
 

@@ -1,26 +1,15 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { Customer } from "../types/customer_types";
+import { iCustomer } from "./customer_types";
 
-const initialState: Customer[] = [
+const initialState: iCustomer[] = [
   {
-    customer_id: 1,
-    code: "123",
-    name: "Cash Customer",
-    email: "ngomanaft@gmail.com",
-    balance: 0,
-  },
-  {
-    customer_id: 2,
-    code: "321",
-    name: "Tony",
-    email: "ngomanaft@icloud.com",
-    balance: 0,
-  },
-  {
-    customer_id: 3,
-    code: "456",
-    name: "Kulungwana",
-    email: "tony@numberz.co.za",
+    customerId: 0,
+    customerCode: "CASH001",
+    customerName: "Cash Customer",
+    customerContactNumber: "",
+    customerEmail: "",
+    createdAt: null,
+    updatedAt: null,
     balance: 0,
   },
 ];
@@ -30,7 +19,7 @@ const customerSlice = createSlice({
   initialState: initialState,
   reducers: {
     create: {
-      reducer: (state, { payload }: PayloadAction<Customer>) => {
+      reducer: (state, { payload }: PayloadAction<iCustomer>) => {
         state.push(payload);
       },
       prepare: (customer: any) => ({
@@ -39,16 +28,16 @@ const customerSlice = createSlice({
     },
     edit: (state, { payload }) => {
       const customerToEdit = state.find(
-        (customer) => customer.customer_id === payload.customer_id
+        (customer) => customer.customerId === payload.customer_id
       );
       if (customerToEdit) {
-        customerToEdit.code = payload.code;
-        customerToEdit.name = payload.name;
+        customerToEdit.customerCode = payload.customerCode;
+        customerToEdit.customerName = payload.customerName;
       }
     },
     remove: (state, { payload }) => {
       const customerToDelete = state.findIndex(
-        (customer) => customer.customer_id === payload.customer_id
+        (customer) => customer.customerId === payload.customer_id
       );
       // state.customers.filter(({item_code}) => item_code !== payload
 

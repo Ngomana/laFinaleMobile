@@ -6,14 +6,6 @@ import {
 } from "../../hardCodedFunctions/functions";
 import { RootStateOrAny, useDispatch, useSelector } from "react-redux";
 import SearchBox from "../items/SearchBox";
-import {
-  addInvoiceItems,
-  decreaseItemQuantity,
-  incrementItemQuantity,
-  removeItemFromDocument,
-} from "../../redux/reducers/Invoice_reducer/createInvoice";
-import { createDocumentAction } from "../../redux/reducers/document_details/invoice_document";
-import BottomBarDocumentDetails from "../GlobalComponents/ButtomBarTotalList";
 import CustomerDetailsBanner from "../GlobalComponents/DocumentDetailsBanner";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import LinearGradient from "react-native-linear-gradient";
@@ -40,7 +32,6 @@ const CreateInvoice = ({ navigation }: any) => {
 
   const invoices = useSelector((state: RootStateOrAny) => state.invoices);
 
-  
   const items = useSelector((state: RootStateOrAny) => {
     if (searchValue.length === 0) {
       return state.items;
@@ -55,7 +46,6 @@ const CreateInvoice = ({ navigation }: any) => {
 
   const dispatch = useDispatch();
 
-  
   // @ts-ignore
   const invoiceNumber = Math.max(
     ...invoices.map((invoice: number) => invoice.invoice_no),

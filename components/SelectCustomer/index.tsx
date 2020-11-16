@@ -2,7 +2,10 @@ import React from "react";
 import { Text, View, Alert } from "react-native";
 import CustomerFlatList from "../GlobalComponents/CustomerFlatList";
 import { RootStateOrAny, useSelector } from "react-redux";
-import { Invoice, Quote } from "../../hardCodedFunctions/functions";
+import {
+  useInvoiceType,
+  useQuotationType,
+} from "../../functions/documentTpyes";
 
 const SelectCustomerScreen = ({ route, navigation }: any) => {
   const customers = useSelector((state: RootStateOrAny) => state.customers);
@@ -14,25 +17,25 @@ const SelectCustomerScreen = ({ route, navigation }: any) => {
     email: string,
     balance: number
   ) => {
-    if (documentType === Invoice) {
+    if (documentType === useInvoiceType) {
       //navigate to create invoice screen
       return navigation.navigate("createDocumentScreen", {
         customerCode: code,
         customerName: name,
         customerEmail: email,
         customerBalance: balance,
-        documentType: "Invoice",
+        documentType: useInvoiceType,
       });
     }
 
-    if (documentType === Quote) {
+    if (documentType === useQuotationType) {
       //navigate to create quotation screen
       return navigation.navigate("createDocumentScreen", {
         customerCode: code,
         customerName: name,
         customerEmail: email,
         customerBalance: balance,
-        documentType: "Quote",
+        documentType: useQuotationType,
       });
     }
   };
