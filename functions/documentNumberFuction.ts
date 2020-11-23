@@ -1,4 +1,4 @@
-import { useQuotationType } from "./documentTpyes";
+import { useQuotationType } from "./documentTypes";
 
 interface iDocumentNumber {
   documentType: string;

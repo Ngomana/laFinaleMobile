@@ -6,6 +6,7 @@ import { Provider } from "react-redux";
 import { store } from "./redux";
 import { createConnection, getRepository, Connection } from "typeorm/browser";
 import { Customer } from "./typeorm/Entity/Customer";
+import DrawerNavigation from "./navigation/DrawerNavigation";
 
 const MainAppEntry: () => ReactNode = () => {
   const [defaultConnect, setConnection] = useState<Connection | null>(null);
@@ -37,7 +38,7 @@ const MainAppEntry: () => ReactNode = () => {
   return (
     <Provider store={store}>
       <NavigationContainer>
-        <StackNavigator />
+        <DrawerNavigation />
       </NavigationContainer>
     </Provider>
   );

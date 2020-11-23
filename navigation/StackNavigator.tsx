@@ -6,11 +6,11 @@ import SelectCustomerScreen from "../components/SelectCustomer/index";
 import MainButton from "../components/GlobalComponents/MainButton";
 import { useState } from "react";
 import CreateDocumentScreen from "../components/CreateDocumentScreen";
-import { useInvoiceType, useQuotationType } from "../functions/documentTpyes";
+import { useInvoiceType, useQuotationType } from "../functions/documentTypes";
 import { DocButton } from "../components/documentButtons/documentButton";
 import { appDispatch } from "../redux/index";
 import { removeAllAction } from "../redux/reducers/createDocuments/index";
-
+import IconButton from "../components/GlobalComponents/iconButton/IconButton";
 const Stack = createStackNavigator();
 
 const StackNavigator = ({ route }: any) => {
@@ -28,7 +28,8 @@ const StackNavigator = ({ route }: any) => {
         options={({ navigation }) => {
           return {
             headerTitleAlign: "center",
-            headerTitle: "Mars Industries",
+            headerTitle: "",
+            headerTitleAllowFontScaling: true,
             headerMode: "screen",
             headerRight: () => (
               <View style={{ padding: 5 }}>
@@ -45,7 +46,22 @@ const StackNavigator = ({ route }: any) => {
               </View>
             ),
             headerLeft: () => (
-              <View style={{ padding: 5 }}>
+              <View
+                style={{
+                  padding: 5,
+                  flexDirection: "row",
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                }}
+              >
+                <IconButton
+                  iconColor="black"
+                  iconSize={35}
+                  buttonPress={() => {
+                    navigation.toggleDrawer();
+                  }}
+                  iconName="menu"
+                />
                 <DocButton
                   buttonText="Quote"
                   buttonPress={() => {

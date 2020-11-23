@@ -4,7 +4,7 @@ import { RootStateOrAny, useSelector } from "react-redux";
 import DocumentFlatList from "../GlobalComponents/DocumentFlatList";
 import OfflineBanner from "../GlobalComponents/OfflineBanner";
 import NetInfo from "@react-native-community/netinfo";
-import { useQuotationType } from "../../functions/documentTpyes";
+import { useQuotationType } from "../../functions/documentTypes";
 
 const QuotationScreen = () => {
   const [connected, setConnected] = useState(false);

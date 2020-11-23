@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import {
   vatAmountCalcu,
   vatExclusiveCalcu,
-} from "../../../functions/totalsCaluclations";
+} from "../../../functions/totalsCalculations";
 import { iCreateDocument } from "./types";
 
 const initialState: iCreateDocument[] = [];

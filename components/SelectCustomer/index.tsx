@@ -5,7 +5,7 @@ import { RootStateOrAny, useSelector } from "react-redux";
 import {
   useInvoiceType,
   useQuotationType,
-} from "../../functions/documentTpyes";
+} from "../../functions/documentTypes";
 
 const SelectCustomerScreen = ({ route, navigation }: any) => {
   const customers = useSelector((state: RootStateOrAny) => state.customers);

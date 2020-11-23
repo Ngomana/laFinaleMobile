@@ -1,13 +1,17 @@
 import React, { SyntheticEvent, useEffect, useState } from "react";
 import {
+  Button,
+  Modal,
   NativeSyntheticEvent,
   StyleSheet,
+  Text,
   TextInputChangeEventData,
   View,
 } from "react-native";
+import moment from "moment";
 import { RootStateOrAny } from "react-redux";
 import DocumentItemsFlatList from "../GlobalComponents/Document_Item_FlatList";
-import BottomBarDocumentDetails from "../GlobalComponents/ButtomBarTotalList";
+import BottomBarDocumentDetails from "../GlobalComponents/BottomBarTotalList";
 import { DefaultSearchBox } from "../textBox/searchBox";
 import { appDispatch, appSelector } from "../../redux/index";
 import { Item } from "redux/reducers/item/item_types";
@@ -22,10 +26,17 @@ import {
 import {
   vatAmountCalcu,
   vatExclusiveCalcu,
-} from "../../functions/totalsCaluclations";
+} from "../../functions/totalsCalculations";
+import IconButton from "../GlobalComponents/iconButton/IconButton";
+import { Platform } from "react-native";
+import { iCreateDocument } from "../../redux/reducers/createDocuments/types";
+import DatePicker from "../date/index";
+import { useInvoiceType } from "../../functions/documentTypes";
+import { TextInput } from "react-native-gesture-handler";
 
 const CreateDocumentScreen = ({ route }: any) => {
   const [searchedItems, setSearchedItems] = useState("");
+  const [documentDate, setDocumentDate] = useState(false);
 
   const {
     customerCode,
@@ -67,10 +78,6 @@ const CreateDocumentScreen = ({ route }: any) => {
         0
       )
     ) + 1;
-
-  useEffect(() => {
-    console.log(documentItems);
-  });
 
   //getting invoice number or document number
   //adding items
@@ -190,6 +197,37 @@ const CreateDocumentScreen = ({ route }: any) => {
         decrementQuantity={decrementItem}
         editQuantityValue={editQuantityManually}
       />
+
+      <View style={styles.documentFunctions}>
+        <IconButton
+          iconName="calendar"
+          iconColor="black"
+          iconSize={30}
+          buttonText="Date & Details"
+        />
+
+        <IconButton
+          iconName="share-alternative"
+          iconColor="black"
+          iconSize={30}
+          buttonText="Save & Share"
+          buttonPress={() => {
+            documentItems.forEach((docItems: Partial<iCreateDocument>) => {
+              console.log(
+                `item Code: ${docItems.item_code} Description: ${docItems.item_description} Quantity: ${docItems.item_quantity}`
+              );
+            });
+          }}
+        />
+
+        <IconButton
+          iconName="save"
+          iconColor="black"
+          iconSize={30}
+          buttonText="Save Only"
+        />
+      </View>
+
       <BottomBarDocumentDetails
         sum_total={totalAmount.toFixed(2)}
         vat_amount={totalVatAmount.toFixed(2)}
@@ -198,6 +236,40 @@ const CreateDocumentScreen = ({ route }: any) => {
         customer_name={customerName}
         customer_balance={customerBalance}
       />
+
+      <Modal visible={true}>
+        <View style={styles.body}>
+          <View style={styles.datePickerView}>
+            <Text>{documentType} Date</Text>
+
+            <View>
+              {documentType.toLowerCase() === useInvoiceType.toLowerCase() ? (
+                <Text>{documentType} Due Date</Text>
+              ) : (
+                <View
+                  style={{
+                    justifyContent: "center",
+                    alignItems: "center",
+                    flexDirection: "row",
+                  }}
+                >
+                  <Text>{documentType} is valid for:</Text>
+                  <TextInput
+                    placeholder="Enter no."
+                    style={{ borderBottomWidth: 1 }}
+                    keyboardType="number-pad"
+                  />
+                  <Text>days</Text>
+                </View>
+              )}
+            </View>
+            <View>
+              <DatePicker displayType="spinner" />
+            </View>
+          </View>
+          <Button title="Close" />
+        </View>
+      </Modal>
     </View>
   );
 };
@@ -211,6 +283,34 @@ const styles = StyleSheet.create({
     alignItems: "center",
     flexDirection: "row",
     backgroundColor: "white",
+  },
+  documentFunctions: {
+    backgroundColor: "transparent",
+    justifyContent: "flex-end",
+    alignItems: "flex-end",
+    position: "absolute",
+    bottom: -100,
+    right: 10,
+
+    shadowColor: "black",
+    shadowOffset: {
+      width: 3,
+      height: 3,
+    },
+    shadowOpacity: 0.5,
+    shadowRadius: 5,
+    elevation: Platform.select({
+      android: 3,
+      ios: 5,
+    }),
+    // padding: 10,
+    paddingBottom: 70,
+    marginBottom: "30%",
+  },
+  datePickerView: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
   },
 });
 

@@ -9,7 +9,7 @@ import {
 import {
   useInvoiceType,
   useQuotationType,
-} from "../../functions/documentTpyes";
+} from "../../functions/documentTypes";
 import { iDocumentTypes } from "../../redux/reducers/documents/documentTypes";
 
 const DocumentView = ({
