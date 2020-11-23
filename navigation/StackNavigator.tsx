@@ -5,7 +5,7 @@ import Home from "./TabNavigator";
 import SelectCustomerScreen from "../components/SelectCustomer/index";
 import MainButton from "../components/GlobalComponents/MainButton";
 import { useState } from "react";
-import CreateDocumentScreen from "../components/CreateDocumentScreen";
+import CreateDocumentScreen from "../screens/createDocument";
 import { useInvoiceType, useQuotationType } from "../functions/documentTypes";
 import { DocButton } from "../components/documentButtons/documentButton";
 import { appDispatch } from "../redux/index";

@@ -1,4 +1,4 @@
-import { DefaultSearchBox } from "../textBox/searchBox";
+import { DefaultSearchBox } from "../../components/textBox/searchBox";
 import React, { SyntheticEvent, useState } from "react";
 import {
   Modal,
@@ -9,9 +9,12 @@ import {
   ActivityIndicator,
   Platform,
 } from "react-native";
-import CustomerFlatList from "../GlobalComponents/CustomerFlatList";
-import { DocButton, ToInvoiceButton } from "../documentButtons/documentButton";
-import AddCustomer from "../GlobalComponents/AddCustomer";
+import CustomerFlatList from "../../components/GlobalComponents/CustomerFlatList";
+import {
+  DocButton,
+  ToInvoiceButton,
+} from "../../components/documentButtons/documentButton";
+import AddCustomer from "../../components/GlobalComponents/AddCustomer";
 import { createCustomer } from "../../functions/customers";
 import { appSelector } from "../../redux/index";
 

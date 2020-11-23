@@ -10,9 +10,9 @@ import {
 } from "react-native";
 import moment from "moment";
 import { RootStateOrAny } from "react-redux";
-import DocumentItemsFlatList from "../GlobalComponents/Document_Item_FlatList";
-import BottomBarDocumentDetails from "../GlobalComponents/BottomBarTotalList";
-import { DefaultSearchBox } from "../textBox/searchBox";
+import DocumentItemsFlatList from "../../components/GlobalComponents/Document_Item_FlatList";
+import BottomBarDocumentDetails from "../../components/GlobalComponents/BottomBarTotalList";
+import { DefaultSearchBox } from "../../components/textBox/searchBox";
 import { appDispatch, appSelector } from "../../redux/index";
 import { Item } from "redux/reducers/item/item_types";
 import {
@@ -27,11 +27,14 @@ import {
   vatAmountCalcu,
   vatExclusiveCalcu,
 } from "../../functions/totalsCalculations";
-import IconButton from "../GlobalComponents/iconButton/IconButton";
+import IconButton from "../../components/GlobalComponents/iconButton/IconButton";
 import { Platform } from "react-native";
 import { iCreateDocument } from "../../redux/reducers/createDocuments/types";
-import DatePicker from "../date/index";
-import { useInvoiceType } from "../../functions/documentTypes";
+import DatePicker from "../../components/date/index";
+import {
+  useInvoiceType,
+  useQuotationType,
+} from "../../functions/documentTypes";
 import { TextInput } from "react-native-gesture-handler";
 
 const CreateDocumentScreen = ({ route }: any) => {
@@ -199,12 +202,31 @@ const CreateDocumentScreen = ({ route }: any) => {
       />
 
       <View style={styles.documentFunctions}>
-        <IconButton
-          iconName="calendar"
-          iconColor="black"
-          iconSize={30}
-          buttonText="Date & Details"
-        />
+        {/* if its a quotation */}
+        {documentType.toLowerCase() === useQuotationType.toLowerCase() ? (
+          <IconButton
+            iconName="calendar"
+            iconColor="black"
+            iconSize={30}
+            buttonText={`${documentType} Date`}
+          />
+        ) : (
+          <View>
+            <IconButton
+              iconName="calendar"
+              iconColor="black"
+              iconSize={30}
+              buttonText={`${documentType} Date`}
+            />
+
+            <IconButton
+              iconName="calendar"
+              iconColor="black"
+              iconSize={30}
+              buttonText={`Due Date`}
+            />
+          </View>
+        )}
 
         <IconButton
           iconName="share-alternative"
@@ -237,7 +259,7 @@ const CreateDocumentScreen = ({ route }: any) => {
         customer_balance={customerBalance}
       />
 
-      <Modal visible={true}>
+      <Modal visible={false}>
         <View style={styles.body}>
           <View style={styles.datePickerView}>
             <Text>{documentType} Date</Text>
